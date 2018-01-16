@@ -83,22 +83,20 @@ public class LoggingUtils {
 		if(object == null) { 
 			return JsonNull.INSTANCE;
 		}
-		
-		Class<? extends Object> c = object.getClass();
-		
-		if(Number.class.isAssignableFrom(c)) {
+				
+		if(object instanceof Number) {
 			return new JsonPrimitive((Number)object);
 		}
 		
-		if(String.class.isAssignableFrom(c)) {
+		if(object instanceof String) {
 			return new JsonPrimitive((String)object);
 		}
 		
-		if(Character.class.isAssignableFrom(c)) {
+		if(object instanceof Character) {
 			return new JsonPrimitive((Character)object);
 		}
 		
-		if(Boolean.class.isAssignableFrom(c)) {
+		if(object instanceof Boolean) {
 			return new JsonPrimitive((Boolean)object);
 		}
 		
@@ -106,19 +104,19 @@ public class LoggingUtils {
 		JsonObject json = new JsonObject();
 		json.addProperty("class", object.getClass().getName());
 		
-		if(Thread.class.isAssignableFrom(c)) {
+		if(object instanceof Thread) {
 			json.addProperty("thread", ((Thread)object).getName());
 		}
 		
-		if(LabeledObject.class.isAssignableFrom(c)) {
+		if(object instanceof LabeledObject) {
 			json.add("label", ((LabeledObject)object).getLabel());
 		}
 		
-		if(c.isArray()) {
-			json.addProperty("type", c.getComponentType().getName());
+		if(object.getClass().isArray()) {
+			json.addProperty("type", object.getClass().getComponentType().getName());
 		}
 		
-		if(Throwable.class.isAssignableFrom(c)) {
+		if(object instanceof Throwable) {
 			json.addProperty("message",((Throwable)object).getMessage());
 			JsonArray stackJson = new JsonArray();
 			for(StackTraceElement element:((Throwable)object).getStackTrace()) {
@@ -131,4 +129,28 @@ public class LoggingUtils {
 		
 	}
 	
+	public static JsonArray chainPut(JsonArray jsonArray, Number number) {
+		jsonArray.add(number);
+		return jsonArray;
+	}
+	
+	public static JsonArray chainPut(JsonArray jsonArray, String string) {
+		jsonArray.add(string);
+		return jsonArray;
+	}
+	
+	public static JsonArray chainPut(JsonArray jsonArray, Boolean bool) {
+		jsonArray.add(bool);
+		return jsonArray;
+	}
+	
+	public static JsonArray chainPut(JsonArray jsonArray, Character character) {
+		jsonArray.add(character);
+		return jsonArray;
+	}
+	
+	public static JsonArray chainPut(JsonArray jsonArray, JsonElement jsonElement) {
+		jsonArray.add(jsonElement);
+		return jsonArray;
+	}
 }

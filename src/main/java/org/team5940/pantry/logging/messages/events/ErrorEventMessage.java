@@ -33,4 +33,14 @@ public class ErrorEventMessage extends EventMessage {
 		this(source, name);
 		this.getMetadata().add("throwable", LoggingUtils.getObjectInfoAsJson(throwable));
 	}
+
+	/**
+	 * Constructor for the error event message with the throwable passed. Adds the object info of the throwable as a JsonObject which includes the "message" and "stack_trace"
+	 * The name for this is the message in the throwable. 
+	 * @param source The source of the message.
+	 * @param throwable The throwable that is to be logged.
+	 */
+	public ErrorEventMessage(Object source, Throwable throwable) {
+		this(source, throwable.getMessage(), throwable);
+	}
 }
