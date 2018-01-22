@@ -31,7 +31,7 @@ public class WarningEventMessage extends EventMessage {
 	 */
 	public WarningEventMessage(Object source, String name, Throwable throwable) {
 		this(source, name);
-		this.getData().add("throwable", LoggingUtils.getObjectInfoAsJson(throwable));
+		LoggingUtils.getThrowableAsJson(this, throwable);
 	}
 	
 	/**

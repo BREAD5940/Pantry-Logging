@@ -31,7 +31,7 @@ public class ErrorEventMessage extends EventMessage {
 	 */
 	public ErrorEventMessage(Object source, String name, Throwable throwable) {
 		this(source, name);
-		this.getMetadata().add("throwable", LoggingUtils.getObjectInfoAsJson(throwable));
+		LoggingUtils.getThrowableAsJson(this, throwable);
 	}
 
 	/**

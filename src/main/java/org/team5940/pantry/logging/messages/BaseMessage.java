@@ -22,7 +22,7 @@ public class BaseMessage extends Message {//TODO just like LoggingUtils' obInfo,
 		
 		this.getMetadata().addProperty("time", LoggingUtils.getTime());
 		this.getMetadata().addProperty("runtime", LoggingUtils.getRuntime());
-		this.getMetadata().add("thread", LoggingUtils.getCurrentThreadAsJson());
+		this.getMetadata().addProperty("thread", LoggingUtils.getCurrentThreadAsJson());
 		this.getMetadata().add("source", LoggingUtils.getObjectInfoAsJson(source));
 		
 	}

@@ -18,12 +18,6 @@ import com.google.gson.JsonArray;
  *
  */
 public class NumberValueMessage extends ValueMessage {
-	/*
-	 * TODO Units can involve more than just two others, I'd make this explanation
-	 * more generic. Just talk aout being able to multiply exponents and raise
-	 * individual ones to an integer power. Might also want to mention in
-	 * passing the constants and method.
-	 */
 
 	/**
 	 * Constant unit for meters per second squared a.k.a. acceleration.
@@ -81,23 +75,23 @@ public class NumberValueMessage extends ValueMessage {
 
 	/**
 	 * Constructor for a number value message with a unit. Adds the unit to the
-	 * metadata under the key "unit".
+	 * data under the key "unit".
 	 * 
 	 * @param source
 	 *            The source of the message.
 	 * @param value
 	 *            The value to be logged.
 	 * @param unit
-	 *            The unit of the value in the format of "unit"*"unit"^"power".
+	 *            The unit of the value expressed in the multiplication of units and powers.
 	 */
 	public NumberValueMessage(Object source, double value, String unit) {
 		this(source, value);
-		this.getMetadata().addProperty("unit", unit);
+		this.getData().addProperty("unit", unit);
 	}
 
 	/**
-	 * Creates a unit with two given units with one in relation to the other. If
-	 * the first unit is divided by the second one, the power is negative. <BR>
+	 * Creates a unit with two given units with one in relation to the other.<BR>
+	 * If the first unit is divided by the second one, the power is negative. <BR>
 	 * If the power given is 0 then the method returns the unit1. <BR>
 	 * If the power give is 1 then the method returns the unit1*unit2. <BR>
 	 * If the power given is more than 1 then the method returns

@@ -1,5 +1,7 @@
 package org.team5940.pantry.logging;
 
+import org.team5940.pantry.logging.messages.Message;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,12 +51,13 @@ public class LoggingUtils {
 	}
 	
 	/**
-	 * Gets the current thread that is running as represented by a JsonObject. It is converted to Json by {@link #getObjectInfoAsJson(Object) getObjectInfoAsJson}.
+	 * Gets the current thread that is running as represented by a JsonObject. It is converted to Json by getting the name of the thread and returning it as a JsonObject.
 	 * @return The current thread.
 	 */
-	public static JsonElement getCurrentThreadAsJson() {
+	public static String getCurrentThreadAsJson() {
+		Thread thread = Thread.currentThread();
+		return thread.getName();
 		
-		return getObjectInfoAsJson(Thread.currentThread());
 
 	}
 	
@@ -70,10 +73,8 @@ public class LoggingUtils {
 	 * Otherwise, it returns a JsonObject with the following properties:<br>
 	 * <UL>
 	 * <LI>"class" - Class Name
-	 * <LI>Thread</LI><UL><LI>"thread" - Thread Name</LI></UL>
 	 * <LI>LabeledObject</LI><UL><LI>"label" - Label for the class</LI></UL>
 	 * <LI>Array</LI><UL><LI>"type" - Name of the component type</LI></UL>
-	 * <LI>Throwable</LI><UL><LI>"message" - The message of the throwable object</LI><LI>"stack_trace" - The stack trace of the throwable</LI>
 	 * </UL>
 	 * @param object The object to return information about.
 	 * @return The information about the object. If the argument is null, it returns an instance of JsonNull.
@@ -104,10 +105,6 @@ public class LoggingUtils {
 		JsonObject json = new JsonObject();
 		json.addProperty("class", object.getClass().getName());
 		
-		if(object instanceof Thread) {
-			json.addProperty("thread", ((Thread)object).getName());
-		}
-		
 		if(object instanceof LabeledObject) {
 			json.add("label", ((LabeledObject)object).getLabel());
 		}
@@ -116,16 +113,25 @@ public class LoggingUtils {
 			json.addProperty("type", object.getClass().getComponentType().getName());
 		}
 		
-		if(object instanceof Throwable) {
-			json.addProperty("message",((Throwable)object).getMessage());
-			JsonArray stackJson = new JsonArray();
-			for(StackTraceElement element:((Throwable)object).getStackTrace()) {
-				stackJson.add(element.toString());
-			}
-			json.add("stack_trace", stackJson);
-		}
-		
 		return json;
+		
+	}
+	
+	/**
+	 * Gets the message and stack trace of a Throwable and adds it to the target message.
+	 * @param target The target to add the message and stack trace onto.
+	 * @param throwable The throwable that the message and stack trace are being gotten from.
+	 */
+	
+	public static void getThrowableAsJson(Message target, Throwable throwable) throws IllegalArgumentException {
+		
+		target.getData().addProperty("message", throwable.getMessage());
+		
+		JsonArray stackJson = new JsonArray();
+		for(StackTraceElement element:throwable.getStackTrace()) {
+			stackJson.add(element.toString());
+		}
+		target.getData().add("stack_trace", stackJson);
 		
 	}
 	

@@ -25,7 +25,7 @@ public class EventMessage extends BaseMessage {
 		JsonArray type = new JsonArray();
 		type.add("event");
 		this.getMetadata().add("type", type);
-		this.getMetadata().addProperty("name", name);
+		this.getData().addProperty("name", name);
 	}
 
 }
