@@ -1,5 +1,6 @@
 package org.team5940.pantry.logging.messages;
 
+import org.team5940.pantry.logging.LabeledObject;
 import org.team5940.pantry.logging.LoggingUtils;
 
 import com.google.gson.JsonObject;
@@ -23,8 +24,11 @@ public class BaseMessage extends Message {//TODO just like LoggingUtils' obInfo,
 		this.getMetadata().addProperty("time", LoggingUtils.getTime());
 		this.getMetadata().addProperty("runtime", LoggingUtils.getRuntime());
 		this.getMetadata().addProperty("thread", LoggingUtils.getCurrentThreadAsJson());
-		this.getMetadata().add("source", LoggingUtils.getObjectInfoAsJson(source));
-		
+		this.getMetadata().addProperty("class", source.getClass().getName());
+		if(source instanceof LabeledObject) {
+			this.getMetadata().add("label", ((LabeledObject) source).getLabel());
+		}
+	
 	}
 
 }
