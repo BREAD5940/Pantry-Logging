@@ -28,7 +28,7 @@ task wrapper(type: Wrapper) {
 task docs(type: Exec) {
   workingDir './src/main/java'
 
-  executable '/usr/bin/javadoc'
+  executable 'javadoc'
 
   args '-d', '../../../docs', '-subpackages', 'org.team5940.pantry.logging'
 
