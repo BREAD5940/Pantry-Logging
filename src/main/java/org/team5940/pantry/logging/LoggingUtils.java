@@ -185,7 +185,7 @@ public class LoggingUtils {
 	 * @throws IllegalArgumentException
 	 *             Throws if any value is null.
 	 */
-	public static void checkArrayArguments(Object[] arguments) throws IllegalArgumentException {
+	public static void checkArrayArguments(Object... arguments) throws IllegalArgumentException {
 		checkArgument(arguments);
 		for (Object argument : arguments) {
 			if (argument == null) {
