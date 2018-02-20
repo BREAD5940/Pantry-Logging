@@ -1,0 +1,9 @@
+language: java
+script: ./gradlew test
+deploy:
+    skip_cleanup: true
+    provider: script
+    script: bash .gen_docs.sh
+    on:
+        branch: master
+        condition: $(git log --format="%cn" -n 1) != "Travis CI User"
