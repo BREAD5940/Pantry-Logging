@@ -5,9 +5,9 @@ import com.google.gson.JsonArray;
 /**
  * A Label is a simple, hierarchical, string-based name for something - similar to urls, file structures, 
  * addresses, etc. There are no limitations on the strings that can be used other than that they cannot be null. 
- * The hierarchy is determined as least specific/ most general -> most specific/ least general.
+ * The hierarchy is determined as least specific/ most general -&lt; most specific/ least general.
  * <BR>
- * (e.g. world->country->state->county->street->address)
+ * (e.g. world-&lt;country-&lt;state-&lt;county-&lt;street-&lt;address)
  * <BR><BR>
  * A LabeledObject is an object that has a label. Object that implement labeled objects have a getLabel method in 
  * order to return the label that corresponds with that object.

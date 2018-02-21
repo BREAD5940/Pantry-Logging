@@ -73,8 +73,8 @@ public class LoggingUtils {
 	 * Otherwise, it returns a JsonObject with the following properties:<br>
 	 * <UL>
 	 * <LI>"class" - Class Name
-	 * <LI>LabeledObject</LI><UL><LI>"label" - Label for the class</LI></UL>
-	 * <LI>Array</LI><UL><LI>"type" - Name of the component type</LI></UL>
+	 * <LI>LabeledObject</LI> <LI>"label" - Label for the class</LI>
+	 * <LI>Array</LI> <LI>"type" - Name of the component type</LI>
 	 * </UL>
 	 * @param object The object to return information about.
 	 * @return The information about the object. If the argument is null, it returns an instance of JsonNull.
